@@ -79,15 +79,8 @@
     <div id="result"></div>
   </div>
 
-  <div class="card expired" id="expiredCard" style="display:none;">
-    <div class="expired-icon">⏰</div>
-    <div class="expired-title">本期收据查询已结束</div>
-    <div class="expired-msg" id="expiredMsg"></div>
-  </div>
-
   <div class="foot">
     <div id="footNote">如查不到，请确认手机号与登记时一致，或联系管家核对。</div>
-    <div id="expiryNote" class="expiry-note"></div>
   </div>
 
 <script>
@@ -337,8 +330,6 @@ var DATA = {
   "f7c0c8395e10ac58a90e15f07520b73481c4744bc477aca69a6d5764bdc46104": "rLvqVzEylniLRifARxaGBbH3RHnmW4yE6AI4CZ/+QSbG8OsObSGOdIkse5EYRZUOoeaS+m6SKgp/6/tGkeRDdpKuvBtkMI5snzY33FUC2lPssFZx5FWdlqpPe0SfsAB81froG24ygHiLa0qAB0XBFrvkVnrwR5yEtk11AeKnFHaF4vIZfCGZa5wsOdBXRehQ5KNWceRVnZWvT3tEn6E+ZZq06gN+Mp1qmCAg0lkAlVHeqRMmsFWWhrhZZ0qI5k0k1beXSSx12nqTLjfGRQKbFKOzKyixBd6EoE11Uo/mTSTVt5ddO3eOYoksJ9JZAJVD3qUZP+ZNjISrXHVIneYVa4OhpBtkMI5vnT83jSg=",
   "fbfcdc795ae9281c1edc80a14cfccb519ceba52c334eb3af98f1c6688332475f": "oIf+FzXLEjw8lLKRfsr6YKzYlR8RYpON6p6pBaEIZ33KzP9OadsKMD7+7sAhmelrvMlNjrKoKzB+RHFKrxJlLZ6SqFtgyQooKOSijWzepjbxn4cWE2yCn6jT6kihRiYn2cb8W2rLBDw8ud/RPpm9c6bLhx8LeoCNtNHkDdxRMi2J3uZZeN0ZKi7+rIFumZQ1+YyHFhNsgJ6v0+pIoVcYPpaI/kN6yxokK/Kzg2Dc6TTDhsJBR2yJj7rI80ayEGt/2YuDCSiMXj4k/KKVf97ncb6c+k9GPMGNotHkXLUQa3/Zi4MdP44KJj7+s4Ng3Okmw4rIWBF0k42px+hdoR5nfY+TqBg2yxI8POW2lWLF6SzB"
 };
-var EXPIRY = "2026-12-31T23:59:59";
-var EXPIRY_TEXT = "2026年12月31日";
 
 /* ---------- 纯 JS SHA-256（无需任何库，file:// 下也能用） ---------- */
 function sha256hex(str) {
@@ -449,20 +440,6 @@ function query() {
 document.getElementById("phone").addEventListener("keydown", function(e){
   if (e.key === "Enter") query();
 });
-
-/* ---------- 有效期控制：过期后隐藏查询区，只显示结束提示 ---------- */
-function initExpiry() {
-  var note = document.getElementById("expiryNote");
-  if (EXPIRY_TEXT) note.textContent = "本期查询有效期至 " + EXPIRY_TEXT + " 23:59";
-  if (EXPIRY && new Date() > new Date(EXPIRY)) {
-    document.getElementById("queryCard").style.display = "none";
-    document.getElementById("footNote").style.display = "none";
-    document.getElementById("expiredCard").style.display = "block";
-    document.getElementById("expiredMsg").innerHTML =
-      "本期（2026年11月）收据查询已于 " + EXPIRY_TEXT + " 结束。<br>请向管家索取最新一期的查询链接。";
-  }
-}
-window.addEventListener("DOMContentLoaded", initExpiry);
 </script>
 </body>
 </html>
